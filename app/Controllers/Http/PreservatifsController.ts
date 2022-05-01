@@ -2,8 +2,57 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Preservatif from 'App/Models/Preservatif'
+import Application from '@ioc:Adonis/Core/Application'
 
 export default class PreservatifsController {
+
+    public async afficher({view}: HttpContextContract){
+      const categories = await Database.from('categories').select('*').where({status:0})
+      return view.render('preservatifs/add',{categories})
+    }
+
+    public async ajouter({request, view}: HttpContextContract){
+      const name = request.input('name')
+      const categorie_id = request.input('categorie_id')
+      const prix = request.input('prix')
+      const image = request.file('image',{
+        size:'2mb',
+        extnames:['jpg','JPG','png', 'PNG', 'jpeg', 'JPEG']
+      })
+      
+      if(!image){
+        return
+      }
+      
+      if(!image.isValid){
+        return image.errors
+      }
+
+      await image.move(Application.publicPath('images'))
+      const preservatif = await Preservatif.create({
+        nom_produit: name,
+        prix: prix,
+        id_categorie: categorie_id,
+        image: image.fileName
+      })
+
+      const categories = await Database.from('categories').select('*').where({status:0})
+      return view.render('preservatifs/list-categories',{categories})
+    }
+
+    public async voir({view, params}: HttpContextContract){
+      const categorie_id = params.id
+      const preservatifs = await Database.from('preservatifs').select('*').where({id_categorie:categorie_id, status:0})
+      const imagePath = Application.publicPath("image")
+      console.log(imagePath);
+      return view.render('preservatifs/list',{preservatifs,imagePath})
+    }
+
+    public async listeCategorie({view}:HttpContextContract){
+      const categories = await Database.from('categories').select('*').where({status:0})
+      return view.render('preservatifs/list-categories',{categories})
+    }
+
     public async index({response, params}: HttpContextContract) {
         //recuperation de la liste de toutes les preservatifs par catégorie
         const {id_categorie} = params
