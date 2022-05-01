@@ -1,8 +1,22 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Database from '@ioc:Adonis/Lucid/Database';
 import User from "App/Models/User";
 
 export default class UsersController {
+    public async admin ({view}: HttpContextContract){
+      let commandes = await Database.from('commandes').select('*').orderBy('id','desc').limit(10)
+      let paiements = await Database.from('paiements').select('*').orderBy('id','desc').limit(10)
+      let users = await Database.from('commandes').countDistinct('user_number','total')
+      const total_users = users[0].total
+      let paiement = await Database.from('paiements').count('id_commande','total')
+      const total_paiement = paiement[0].total
+      let revenu = await Database.from('paiements').sum('prix','total')
+      const revenu_total = revenu[0].total
+      let commande = await Database.from('commandes').count('user_number','total')
+      const commandes_total = commande[0].total
+      return view.render('main',{commandes, paiements, total_users, total_paiement, revenu_total, commandes_total})
+    }
     public async store({ request, response}: HttpContextContract) {
         try {
           console.log(1)
