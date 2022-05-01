@@ -38,7 +38,6 @@ export default class CategoriesController {
         image: image.fileName
       })
       
-      console.log(image.filePath)
       response.redirect('/listesCategories')
     }
   
