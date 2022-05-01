@@ -1,0 +1,52 @@
+@layout('layouts/layout')
+
+@section('content')
+  <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">{{name}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <!-- Basic and Outline Pills start -->
+                <section id="basic-and-outline-pills">
+                    <div class="row match-height">
+                        <!-- Basic pills starts -->
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">{{name}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="home" aria-labelledby="home-tab" aria-expanded="true">
+                                        <p>
+                                            <img src="" alt="image" />
+                                        </p>
+                                        <p>Nom de la catégorie: {{name}}</p>
+                                        <p>Date de creation: {{date}}</p>
+                                        <a href="/affichermodification/{{ide}}">
+                                            <button class="btn btn-secondary">Modifier</button>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Basic pills ends -->
+                    </div>
+                </section>
+                <!-- Basic and Outline Pills end -->
+
+            </div>
+        </div>
+    </div>
+@endsection

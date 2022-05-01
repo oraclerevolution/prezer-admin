@@ -1,0 +1,17 @@
+@layout('layouts/layout')
+
+@section('content')
+   <div class="app-content content chat-application">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div>
+            <form enctype="multipart/form-data" style="flex;" method="POST" action="/ajouterlacategorie">
+                <input type="text" name="name" class="form-control-lg" placeholder="Nom de la categorie" id="">
+                <input type="file" name="image" class="form-control-lg" placeholder="" id="" />
+                <input type="submit" class="btn btn-primary" value="Ajouter" >
+            </form>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+@endsection
