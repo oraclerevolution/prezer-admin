@@ -35,7 +35,7 @@ export default class PreservatifsController {
         id_categorie: categorie_id,
         image: image.fileName
       })
-
+      console.log(preservatif)
       const categories = await Database.from('categories').select('*').where({status:0})
       return view.render('preservatifs/list-categories',{categories})
     }

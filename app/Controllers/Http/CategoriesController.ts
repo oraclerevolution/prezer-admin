@@ -37,7 +37,7 @@ export default class CategoriesController {
         name: name,
         image: image.fileName
       })
-      
+      console.log(categorie);
       response.redirect('/listesCategories')
     }
   
