@@ -23,7 +23,96 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+Route.get('/main', 'UsersController.admin')
 
+//categories
+Route.get('/ajouterCategorie', async ({view})=>{
+  return view.render('categories/add')
+})
+Route.get('/listesCategories', 'CategoriesController.page')
+Route.get('/voirCategories/:id', 'CategoriesController.voir')
+Route.post('/ajouterlacategorie','CategoriesController.ajouter')
+Route.get('/affichermodification/:id','CategoriesController.affichermodifier')
+Route.post('/modifierlacategorie/:id','CategoriesController.modifier')
+
+//preservatif
+
+Route.get('/ajouterPreservatif','PreservatifsController.afficher')
+Route.post('/creePreservatif', 'PreservatifsController.ajouter')
+Route.get('/listeCategorie', 'PreservatifsController.listeCategorie')
+Route.get('/preservatifs/:id', 'PreservatifsController.voir')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//====================================
+//              API
+//====================================
 //categorie
 Route.group(() => {
   Route.get('categories', 'CategoriesController.index') //liste des categories
