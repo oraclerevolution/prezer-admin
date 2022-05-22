@@ -29,7 +29,7 @@
                                 @each(categorie in categories)
                                     <tr>
                                         <td></td>
-                                        <td><img src=`C:\Users\LP_NASSIA\Desktop\code-projects\prezer-admin\public\images\${categorie.image}` alt="image" /></td>
+                                        <td><img src="{{categorie.image}}" alt="image" width="70" height="70" /></td>
                                         <td>{{categorie.name}}</td>
                                         <td>{{categorie.created_at}}</td>
                                         <td>

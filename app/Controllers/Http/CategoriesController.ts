@@ -3,13 +3,14 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Categorie from 'App/Models/Categorie'
 import Application from '@ioc:Adonis/Core/Application'
+import Moment from 'moment'
 
 export default class CategoriesController {
   
     public async page({view}: HttpContextContract){
       const categories = await Database.from('categories').select('*').where({status:0})
-      console.log(categories)
-      return view.render('categories/list',{categories})
+      const publicPath = Application.configPath('images')
+      return view.render('categories/list',{categories, publicPath})
     }
   
     public async create({view}: HttpContextContract){
@@ -33,17 +34,18 @@ export default class CategoriesController {
       
       await image.move(Application.publicPath('images'))
       
-      const categorie = await Categorie.create({
-        name: name,
-        image: image.fileName
-      })
-      console.log(categorie);
+      const categorie = new Categorie
+
+      categorie.name = name
+      categorie.image = `images/${image.fileName}`
+      await categorie.save()
+
       response.redirect('/listesCategories')
     }
   
     public async affichermodifier({params,view}: HttpContextContract){
-    const id = params.id
-    const categorie = await Database.from('categories').select('*').where({id:id, status:0})
+      const id = params.id
+      const categorie = await Database.from('categories').select('*').where({id:id, status:0})
       const name = categorie[0].name
       const image = categorie[0].image
       const identifiant = categorie[0].id
@@ -137,11 +139,10 @@ export default class CategoriesController {
     public async voir({view, params}: HttpContextContract){
       const {id} = params
       const categories = await Database.from('categories').select('*').where({id:id, status:0})
-      const ide = categories[0].id
-      const name = categories[0].name
-      const image = categories[0].image
-      const date = categories[0].created_at
-      return view.render('categories/view',{name,image,date,ide})
+      const dateParse = Moment(categories[0].created_at).format('d MMM YYYY')
+      console.log(categories)
+      
+      return view.render('categories/view',{categories:categories, dateParse})
     }
 
     public async show({response,params}: HttpContextContract) {
