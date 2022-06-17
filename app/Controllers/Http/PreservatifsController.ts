@@ -3,6 +3,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Preservatif from 'App/Models/Preservatif'
 import Application from '@ioc:Adonis/Core/Application'
+import { v4 as uuid } from 'uuid'
 
 export default class PreservatifsController {
 
@@ -29,13 +30,15 @@ export default class PreservatifsController {
       }
 
       await image.move(Application.publicPath('images'))
-      const preservatif = await Preservatif.create({
-        nom_produit: name,
-        prix: prix,
-        id_categorie: categorie_id,
-        image: image.fileName
-      })
-      console.log(preservatif)
+
+      const preservatif = new Preservatif
+
+      preservatif.nom_produit = name
+      preservatif.prix = prix
+      preservatif.id_categorie = categorie_id
+      preservatif.image = `images/${uuid()}.${image.extname}`
+      preservatif.save()
+
       const categories = await Database.from('categories').select('*').where({status:0})
       return view.render('preservatifs/list-categories',{categories})
     }
