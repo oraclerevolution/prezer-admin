@@ -37,10 +37,10 @@ Route.post('/modifierlacategorie/:id','CategoriesController.modifier')
 
 //preservatif
 
-Route.get('/ajouterPreservatif','PreservatifsController.afficher')
-Route.post('/creePreservatif', 'PreservatifsController.ajouter')
-Route.get('/listeCategorie', 'PreservatifsController.listeCategorie')
-Route.get('/preservatifs/:id', 'PreservatifsController.voir')
+Route.get('/ajouterPreservatif','ProduitsController.afficher')
+Route.post('/creePreservatif', 'ProduitsController.ajouter')
+Route.get('/listeCategorie', 'ProduitsController.listeCategorie')
+Route.get('/preservatifs/:id', 'ProduitsController.voir')
 
 
 
@@ -113,6 +113,23 @@ Route.get('/preservatifs/:id', 'PreservatifsController.voir')
 //====================================
 //              API
 //====================================
+//boutiques
+Route.group(() => {
+  Route.get('boutiques', 'BoutiquesController.index') //liste des boutiques
+  Route.post('addboutique','BoutiquesController.store') //ajouter une boutique
+  Route.get('details_boutique/:id_boutique', 'BoutiquesController.show') //afficher les details d'une boutique
+  Route.put('updateboutique/:boutique_id','BoutiquesController.update') //modifier la boutique
+})
+
+//categorie
+Route.group(() => {
+  Route.get('categories', 'CategoriesController.index') //liste des categories
+  Route.post('addcategorie','CategoriesController.store') //ajouter une categorie
+  Route.get('details_categorie/:id_categorie', 'CategoriesController.show') //afficher les details d'une catégorie
+  Route.put('updatecategorie/:categorie_id','CategoriesController.update') //modifier la categorie
+  Route.put('delete_categorie/:categorie_id', 'CategoriesController.destroy')
+})
+
 //categorie
 Route.group(() => {
   Route.get('categories', 'CategoriesController.index') //liste des categories
@@ -125,11 +142,11 @@ Route.group(() => {
 
 //preservatif
 Route.group(() => {
-  Route.get('preservatifs/:id_categorie', 'PreservatifsController.index') //liste des preservatifs par categories
-  Route.post('addpreservatif','PreservatifsController.store') //ajouter une categorie
-  Route.get('details_preservatif/:id_preservatif', 'PreservatifsController.show') //afficher les details d'une catégorie
-  Route.put('updatepreservatif/:preservatif_id','PreservatifsController.update') //modifier la categorie
-  Route.put('delete_preservatif/:preservatif_id', 'PreservatifsController.destroy') //supprimer un preservatif
+  Route.get('preservatifs/:id_categorie', 'ProduitsController.index') //liste des preservatifs par categories
+  Route.post('addpreservatif','ProduitsController.store') //ajouter une categorie
+  Route.get('details_preservatif/:id_preservatif', 'ProduitsController.show') //afficher les details d'une catégorie
+  Route.put('updatepreservatif/:preservatif_id','ProduitsController.update') //modifier la categorie
+  Route.put('delete_preservatif/:preservatif_id', 'ProduitsController.destroy') //supprimer un preservatif
 })
 .prefix('/api/v1/')
 
