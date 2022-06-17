@@ -123,9 +123,23 @@ Route.group(() => {
 
 //images
 Route.group(() => {
-  Route.get('images', 'ImagesController.index') //liste des images
+  Route.get('images/:id_produit', 'ImagesController.index') //liste des images d'un produit
   Route.post('addimage','ImagesController.store') //ajouter une image
   Route.put('updateimage/:image_id','ImagesController.update') //modifier l'image
+})
+
+//couleurs
+Route.group(() => {
+  Route.get('couleurs/:id_produit', 'CouleursController.index') //liste des couleurs d'un produit
+  Route.post('addcouleur','CouleursController.store') //ajouter une couleur
+  Route.put('updatecouleur/:couleur_id','CouleursController.update') //modifier la boutique
+})
+
+//parfums
+Route.group(() => {
+  Route.get('parfums/:id_produit', 'ParfumsController.index') //liste des parfums d'un produit
+  Route.post('addparfum','ParfumsController.store') //ajouter un parfum
+  Route.put('updateparfum/:parfum_id','ParfumsController.update') //modifier le parfum
 })
 
 //categorie
