@@ -121,6 +121,13 @@ Route.group(() => {
   Route.put('updateboutique/:boutique_id','BoutiquesController.update') //modifier la boutique
 })
 
+//images
+Route.group(() => {
+  Route.get('images', 'ImagesController.index') //liste des images
+  Route.post('addimage','ImagesController.store') //ajouter une image
+  Route.put('updateimage/:image_id','ImagesController.update') //modifier l'image
+})
+
 //categorie
 Route.group(() => {
   Route.get('categories', 'CategoriesController.index') //liste des categories
