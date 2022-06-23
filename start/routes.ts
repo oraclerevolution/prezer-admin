@@ -23,92 +23,6 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
-Route.get('/main', 'UsersController.admin')
-
-//categories
-Route.get('/ajouterCategorie', async ({view})=>{
-  return view.render('categories/add')
-})
-Route.get('/listesCategories', 'CategoriesController.page')
-Route.get('/voirCategories/:id', 'CategoriesController.voir')
-Route.post('/ajouterlacategorie','CategoriesController.ajouter')
-Route.get('/affichermodification/:id','CategoriesController.affichermodifier')
-Route.post('/modifierlacategorie/:id','CategoriesController.modifier')
-
-//preservatif
-
-Route.get('/ajouterPreservatif','ProduitsController.afficher')
-Route.post('/creePreservatif', 'ProduitsController.ajouter')
-Route.get('/listeCategorie', 'ProduitsController.listeCategorie')
-Route.get('/preservatifs/:id', 'ProduitsController.voir')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //====================================
 //              API
@@ -119,37 +33,28 @@ Route.group(() => {
   Route.post('addboutique','BoutiquesController.store') //ajouter une boutique
   Route.get('details_boutique/:id_boutique', 'BoutiquesController.show') //afficher les details d'une boutique
   Route.put('updateboutique/:boutique_id','BoutiquesController.update') //modifier la boutique
-})
+}).prefix('/api/v1/')
 
 //images
 Route.group(() => {
   Route.get('images/:id_produit', 'ImagesController.index') //liste des images d'un produit
   Route.post('addimage','ImagesController.store') //ajouter une image
   Route.put('updateimage/:image_id','ImagesController.update') //modifier l'image
-})
+}).prefix('/api/v1/')
 
 //couleurs
 Route.group(() => {
   Route.get('couleurs/:id_produit', 'CouleursController.index') //liste des couleurs d'un produit
   Route.post('addcouleur','CouleursController.store') //ajouter une couleur
   Route.put('updatecouleur/:couleur_id','CouleursController.update') //modifier la boutique
-})
+}).prefix('/api/v1/')
 
 //parfums
 Route.group(() => {
   Route.get('parfums/:id_produit', 'ParfumsController.index') //liste des parfums d'un produit
   Route.post('addparfum','ParfumsController.store') //ajouter un parfum
   Route.put('updateparfum/:parfum_id','ParfumsController.update') //modifier le parfum
-})
-
-//categorie
-Route.group(() => {
-  Route.get('categories', 'CategoriesController.index') //liste des categories
-  Route.post('addcategorie','CategoriesController.store') //ajouter une categorie
-  Route.get('details_categorie/:id_categorie', 'CategoriesController.show') //afficher les details d'une catégorie
-  Route.put('updatecategorie/:categorie_id','CategoriesController.update') //modifier la categorie
-  Route.put('delete_categorie/:categorie_id', 'CategoriesController.destroy')
-})
+}).prefix('/api/v1/')
 
 //categorie
 Route.group(() => {
@@ -161,11 +66,11 @@ Route.group(() => {
 })
 .prefix('/api/v1/')
 
-//preservatif
+//produits
 Route.group(() => {
-  Route.get('preservatifs/:id_categorie', 'ProduitsController.index') //liste des preservatifs par categories
+  Route.get('produits/:id_categorie', 'ProduitsController.index') //liste des preservatifs par categories
   Route.post('addpreservatif','ProduitsController.store') //ajouter une categorie
-  Route.get('details_preservatif/:id_preservatif', 'ProduitsController.show') //afficher les details d'une catégorie
+  Route.get('details_preservatif/:id_produit', 'ProduitsController.show') //afficher les details d'une catégorie
   Route.put('updatepreservatif/:preservatif_id','ProduitsController.update') //modifier la categorie
   Route.put('delete_preservatif/:preservatif_id', 'ProduitsController.destroy') //supprimer un preservatif
 })
